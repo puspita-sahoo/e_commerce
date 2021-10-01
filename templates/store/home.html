@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        {% for product in products %}
+        <div class="col-lg-4">
+            <img class="thumbnail" src="{{ product.image.url}}">
+            <div class="box-element product">
+                <h6><strong>{{ product.title }}</strong></h6>
+                <hr>
+                <form action="/add_to_cart" class="d-inline">
+                    <input type="hidden" name="prod_id" value="{{product.id}}" id="prod_id">
+                    <button type="submit" class="btn btn-primary shadow px-5 py-2">Add to Cart</button>
+                </form>
+                <a class="btn btn-outline-success" href="{% url 'product_detail' product.id  %}">View</a>
+                <h5 style="display: inline-block; float:right">{{ product.price|floatformat:2 }}</h5>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

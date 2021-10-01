@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Cart{% endblock %}
+{% block content %}
+
+<div class="container ">
+  <a style="float: right; margin: 5px" class="btn btn-success" href="{% url 'checkout' %}">Checkout</a>
+  <table class="table table-b">
+    <thead class="table-dark">
+      <tr>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Total Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in cart_items %}
+      <tr>
+        <td><img class="row-image" style="width:150px;height:120px;" src="{{ item.product.image.url }}"></td>
+        <td><b>{{item.product.title}}</b></td>
+        <td>{{item.product.price}} </td>
+        <td>
+          <a><i id="{{item.product.id}}_minus" class="fas fa-minus-square fa-lg"
+              onclick=" manageCart('minus', this.id)"></i></a>
+          <b>&ThickSpace;&ThickSpace;{{item.quantity}}&ThickSpace;&ThickSpace;</b>
+          <a><i id="{{item.product.id}}_plus" class="fas fa-plus-square fa-lg"
+              onclick=" manageCart('plus', this.id)"></i></a><br>
+          <button id="{{item.product.id}}_remove" onclick=" manageCart('remove', this.id)">Remove Item</button>
+        </td>
+        <td>{{ item.total_price }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="3"></td>
+        <td colspan="1" class="float-right"><b class="float-right">Total Amount:</b></td>
+        <td colspan="1"> {{total_amount}}</td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+<script>
+  function manageCart(optionType, id) {
+    btnId = id.split("_")[0]
+    console.log(btnId)
+    if (optionType == 'minus') {
+      $.ajax(
+        {
+          type: "GET",
+          url: "/minuscart",
+          data: {
+            prod_id: btnId
+          },
+          success: function (data) {
+            console.log(data)
+            window.location.reload()
+          }
+        })
+
+    } else if (optionType == 'plus') {
+      console.log(optionType)
+      $.ajax(
+        {
+          type: "GET",
+          url: "/pluscart",
+          data: {
+            prod_id: btnId
+          },
+          success: function (data) {
+            console.log(data)
+            window.location.reload()
+          }
+        })
+    } else {
+      //  remove
+      $.ajax(
+        {
+          type: "GET",
+          url: "/removecart",
+          data: {
+            prod_id: btnId
+          },
+          success: function (data) {
+            console.log(data);
+            window.location.reload()
+          }
+        })
+    }
+  }
+</script>
+{% endblock content %}
