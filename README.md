@@ -12,7 +12,7 @@
 
 
 ```bash
-  git clone https://link-to-project
+  git clone https://github.com/puspita-sahoo/e_commerce.git
 ```
 
 ### Create Environment
