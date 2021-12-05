@@ -41,9 +41,11 @@
 
 ```bash
  $ python3 manage.py makemigrations
- $ python3 manage.py migrate
+
 ```
 
+```bash
+ $ python3 manage.py migrate
 ## Create Super User
 
 
