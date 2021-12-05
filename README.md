@@ -43,14 +43,8 @@
  $ python3 manage.py makemigrations
 
 ```
-
 ```bash
  $ python3 manage.py migrate
-## Create Super User
-
-
-```bash
- $ python3 manage.py createsuperuser
 ```
 
 ## Run Server
